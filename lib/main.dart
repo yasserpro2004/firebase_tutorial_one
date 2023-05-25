@@ -1,3 +1,4 @@
+import 'package:firebase_tutorial_one/config/app_route.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/screens.dart';
@@ -10,6 +11,7 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: AppRoute.onGenerateRoute,
       home: const HomeScreen(),
     ),
   );

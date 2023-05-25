@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = '/homeScreen';
+
+  static Route route() => MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (context) => const HomeScreen(),
+      );
+
   const HomeScreen({super.key});
 
   @override
