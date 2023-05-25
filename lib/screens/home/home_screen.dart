@@ -16,6 +16,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppBar(title: 'Zero to unicorn'),
+      bottomNavigationBar: CustomNavigationBar(
+        routeName: routeName,
+      ),
     );
   }
 }

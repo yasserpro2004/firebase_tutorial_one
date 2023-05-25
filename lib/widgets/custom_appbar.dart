@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../config/constants.dart';
+
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   //final double barHeight = 50;
   final VoidCallback? favoritOnPress;
@@ -10,7 +12,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.pinkAccent,
+      backgroundColor: primaryColor,
       actions: [
         IconButton(
           icon: const Icon(Icons.favorite,color:Colors.white),
