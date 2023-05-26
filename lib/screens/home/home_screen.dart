@@ -16,9 +16,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productsCard = ProductModel.products
-        .map((product) => ProductCard(product: product))
-        .toList();
     return Scaffold(
       appBar: const CustomAppBar(title: 'Zero to unicorn'),
       bottomNavigationBar: const CustomNavigationBar(
@@ -40,13 +37,13 @@ class HomeScreen extends StatelessWidget {
           ),
           const SectionTitle(title: 'RECOMMENDED'),
           ProductCarousel(
-            productsCard:
-                productsCard.where((p) => p.product.isRecommend).toList(),
+            products:
+                ProductModel.products.where((p) => p.isRecommend).toList(),
+            //productsCard.where((p) => p.product.isRecommend).toList(),
           ),
           const SectionTitle(title: 'Popular'),
           ProductCarousel(
-            productsCard:
-                productsCard.where((p) => p.product.isPopular).toList(),
+            products: ProductModel.products.where((p) => p.isPopular).toList(),
           ),
         ],
       ),

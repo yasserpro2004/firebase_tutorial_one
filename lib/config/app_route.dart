@@ -1,3 +1,4 @@
+import 'package:firebase_tutorial_one/models/models.dart';
 import 'package:firebase_tutorial_one/screens/screens.dart';
 import 'package:firebase_tutorial_one/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,10 @@ class AppRoute {
         return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
+      case ProductsByCategory.routeName:
+        return ProductsByCategory.route(
+          categoriesModel: settings.arguments as CategoriesModel,
+        );
       default:
         return _errRoute();
     }

@@ -1,4 +1,4 @@
-
+import 'package:firebase_tutorial_one/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
@@ -28,6 +28,8 @@ class CustomNavigationBar extends StatelessWidget {
   List<Widget>? _selectNavBar(BuildContext context, String screen) {
     switch (screen) {
       case '/homeScreen':
+        return _buildNavbar(context);
+      case ProductsByCategory.routeName:
         return _buildNavbar(context);
       default:
     }

@@ -1,14 +1,15 @@
+import 'package:firebase_tutorial_one/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets.dart';
+import '../../models/models.dart';
 
 class ProductCarousel extends StatelessWidget {
   const ProductCarousel({
     super.key,
-    required this.productsCard,
+    required this.products,
   });
 
-  final List<ProductCard> productsCard;
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,9 @@ class ProductCarousel extends StatelessWidget {
         height: MediaQuery.of(context).size.width / 2.5,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: productsCard.length,
+          itemCount: products.length,
           itemBuilder: (context, index) {
-            return productsCard[index];
+            return ProductCard(product: products[index]) ;
           },
         ),
       ),
