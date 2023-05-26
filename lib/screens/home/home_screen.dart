@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_tutorial_one/models/models.dart';
-
 import '../../widgets/widgets.dart';
+//import 'package:firebase_tutorial_one/config/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/homeScreen';
@@ -17,24 +16,40 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var productsCard = ProductModel.products
+        .map((product) => ProductCard(product: product))
+        .toList();
     return Scaffold(
       appBar: const CustomAppBar(title: 'Zero to unicorn'),
       bottomNavigationBar: const CustomNavigationBar(
         routeName: routeName,
       ),
-      body: CarouselSlider(
-        options: CarouselOptions(
-          aspectRatio: 1.5,
-          enlargeCenterPage: true,
-          enableInfiniteScroll: false,
-          viewportFraction: 0.9,
-          enlargeStrategy: CenterPageEnlargeStrategy.height,
-        ),
-        items: CategoriesModel.categories
-            .map((category) => CarouselCard(category: category))
-            .toList(),
+      body: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 1.5,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+              viewportFraction: 0.9,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+            ),
+            items: CategoriesModel.categories
+                .map((category) => CarouselCard(category: category))
+                .toList(),
+          ),
+          const SectionTitle(title: 'RECOMMENDED'),
+          ProductCarousel(
+            productsCard:
+                productsCard.where((p) => p.product.isRecommend).toList(),
+          ),
+          const SectionTitle(title: 'Popular'),
+          ProductCarousel(
+            productsCard:
+                productsCard.where((p) => p.product.isPopular).toList(),
+          ),
+        ],
       ),
     );
   }
 }
-

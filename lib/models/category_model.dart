@@ -14,24 +14,24 @@ class CategoriesModel extends Equatable {
   @override
   List<Object> get props => [categoryID, categoryName, categoryImageURL];
 
-  static List<CategoriesModel> categories = [
-    const CategoriesModel(
+  static const List<CategoriesModel> categories = [
+    CategoriesModel(
       categoryID: '',
       categoryName: 'Soft Drink',
       categoryImageURL:
-          'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+          'https://www.irenefarm.co.za/wp-content/uploads/HERO_Worlds_Best_Soda_Bundaberg_shutterstock_679079920.jpg',
     ),
-    const CategoriesModel(
+    CategoriesModel(
       categoryID: '',
       categoryName: 'Smothies',
       categoryImageURL:
-          'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+          'https://www.evolvingtable.com/wp-content/uploads/2022/12/How-to-Make-Smoothie-1.jpg',
     ),
-    const CategoriesModel(
+    CategoriesModel(
       categoryID: '',
       categoryName: 'Water',
       categoryImageURL:
-          'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+          'https://assets3.thrillist.com/v1/image/2573608/1584x1056/crop;jpeg_quality=60;progressive.jpg',
     ),
   ];
 }
