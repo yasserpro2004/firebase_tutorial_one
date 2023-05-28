@@ -31,6 +31,8 @@ class CustomNavigationBar extends StatelessWidget {
         return _buildNavbar(context);
       case ProductsByCategory.routeName:
         return _buildNavbar(context);
+      case WishListScreen.routeName:
+        return _buildNavbar(context);
       default:
     }
     return null;

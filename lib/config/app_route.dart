@@ -14,6 +14,8 @@ class AppRoute {
         return ProductsByCategory.route(
           categoriesModel: settings.arguments as CategoriesModel,
         );
+      case WishListScreen.routeName:
+        return WishListScreen.route();
       default:
         return _errRoute();
     }
