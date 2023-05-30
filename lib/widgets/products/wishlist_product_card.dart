@@ -1,3 +1,4 @@
+import 'package:firebase_tutorial_one/config/constants.dart';
 import 'package:flutter/material.dart';
 import '../../models/models.dart';
 import '../custom_shadow.dart';
@@ -66,7 +67,7 @@ class WishlistProductCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
+                  ].createShadow().toList(),
                 ),
               ),
               Expanded(
@@ -79,17 +80,16 @@ class WishlistProductCard extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {},
-                          child: const ShadowWidget(
-                              child: Icon(Icons.add_circle_rounded)),
+                          child: const Icon(Icons.add_circle_rounded),
                         ),
                         const SizedBox(
                           width: 20,
                         ),
                         InkWell(
                           onTap: () {},
-                          child: const ShadowWidget(child: Icon(Icons.delete)),
+                          child: const Icon(Icons.delete),
                         )
-                      ],
+                      ].createShadow().toList(),
                     ),
                   ),
                 ),

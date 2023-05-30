@@ -1,18 +1,25 @@
 import 'package:firebase_tutorial_one/config/app_route.dart';
 import 'package:flutter/material.dart';
+import 'Package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/blocs.dart';
 import 'screens/screens.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      title: 'demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => WishlistBloc()..add(StartWishlistEvent())),
+      ],
+      child: MaterialApp(
+        title: 'demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: AppRoute.onGenerateRoute,
+        home: const HomeScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRoute.onGenerateRoute,
-      home: const HomeScreen(),
     ),
   );
 }

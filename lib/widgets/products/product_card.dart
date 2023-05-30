@@ -20,13 +20,19 @@ class ProductCard extends StatelessWidget {
         child: Column(
           children: [
             Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.width / 4,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  child: Image.network(
-                    product.productImageURL,
-                    fit: BoxFit.fill,
-                  )),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/productDetails', arguments: product);
+                },
+                child: SizedBox(
+                    height: MediaQuery.of(context).size.width / 4,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    child: Image.network(
+                      product.productImageURL,
+                      fit: BoxFit.fill,
+                    )),
+              ),
             ]),
             Expanded(
               child: Column(

@@ -1,4 +1,5 @@
 import 'package:firebase_tutorial_one/models/models.dart';
+import 'package:firebase_tutorial_one/screens/products/product_detailes.dart';
 import 'package:firebase_tutorial_one/screens/screens.dart';
 import 'package:firebase_tutorial_one/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class AppRoute {
         return ProductsByCategory.route(
           categoriesModel: settings.arguments as CategoriesModel,
         );
+      case ProductDetails.routeName:
+        return ProductDetails.route(
+            product: settings.arguments as ProductModel);
       case WishListScreen.routeName:
         return WishListScreen.route();
       default:
