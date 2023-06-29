@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import '../../bloc/blocs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../config/constants.dart';
 import '../../models/models.dart';
 import '../widgets.dart';
 
@@ -10,10 +12,6 @@ class ProductsByCategoryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productsCardByCategory = ProductModel.products
-        .where((product) => product.productCategory == _category.categoryName)
-        .toList();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -32,22 +30,42 @@ class ProductsByCategoryBody extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          SingleChildScrollView(
-            child: SizedBox(
-              height: (MediaQuery.of(context).size.height / 3.5) * 2 - 66,
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+          BlocBuilder<ProductsBloc, ProductsState>(
+            builder: (context, state) {
+              if (state is ProductsInitial) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is LoadedProductsState) {
+                var data = state.data
+                    .where((product) =>
+                        product.productCategory == _category.categoryName)
+                    .toList();
+                return SingleChildScrollView(
+                  child: SizedBox(
+                    height: (MediaQuery.of(context).size.height / 4.41) * 2,
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: data.length,
+                        itemBuilder: ((context, index) {
+                          return Center(
+                            child: ProductCard(
+                              product: data[index],
+                            ),
+                          );
+                        })),
                   ),
-                  itemCount: productsCardByCategory.length,
-                  itemBuilder: ((context, index) {
-                    return Center(
-                      child: ProductCard(
-                        product: productsCardByCategory[index],
-                      ),
-                    );
-                  })),
-            ),
+                );
+              } else {
+                return const Center(
+                  child: Text(errorMessage),
+                );
+              }
+            },
           )
         ],
       ),

@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_tutorial_one/models/models.dart';
+import '../../bloc/blocs.dart';
+import '../../config/constants.dart';
 import '../../widgets/widgets.dart';
-//import 'package:firebase_tutorial_one/config/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/homeScreen';
@@ -23,28 +23,57 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              aspectRatio: 1.5,
-              enlargeCenterPage: true,
-              enableInfiniteScroll: false,
-              viewportFraction: 0.9,
-              enlargeStrategy: CenterPageEnlargeStrategy.height,
-            ),
-            items: CategoriesModel.categories
-                .map((category) => CarouselCard(category: category))
-                .toList(),
-          ),
-          const SectionTitle(title: 'RECOMMENDED'),
-          ProductCarousel(
-            products:
-                ProductModel.products.where((p) => p.isRecommend).toList(),
-            //productsCard.where((p) => p.product.isRecommend).toList(),
-          ),
-          const SectionTitle(title: 'Popular'),
-          ProductCarousel(
-            products: ProductModel.products.where((p) => p.isPopular).toList(),
-          ),
+          BlocBuilder<CategoriesBloc, CategoriesState>(
+              builder: (context, state) {
+            if (state is CategoriesInitial) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state is CategoriesLoaded) {
+              return CarouselSlider(
+                options: CarouselOptions(
+                  aspectRatio: 1.5,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  viewportFraction: 0.9,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                ),
+                items: state.categories
+                    .map((category) => CarouselCard(category: category))
+                    .toList(),
+              );
+            } else {
+              return const Center(
+                child: Text(errorMessage),
+              );
+            }
+          }),
+          BlocBuilder<ProductsBloc, ProductsState>(
+            builder: (context, state) {
+              if (state is ProductsInitial) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state is LoadedProductsState) {
+                return Column(
+                  children: [
+                    const SectionTitle(title: 'RECOMMENDED'),
+                    ProductCarousel(
+                      products: state.data.where((p) => p.isRecommend).toList(),
+                    ),
+                    const SectionTitle(title: 'Popular'),
+                    ProductCarousel(
+                      products: state.data.where((p) => p.isPopular).toList(),
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: Text(errorMessage),
+                );
+              }
+            },
+          )
         ],
       ),
     );

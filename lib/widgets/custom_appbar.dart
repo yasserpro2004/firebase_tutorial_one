@@ -11,7 +11,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   const CustomAppBar(
       {super.key,
       required this.title,
-      //this.favoritOnPress,
       this.showFavIcon = true});
 
   @override
@@ -28,11 +27,13 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               )
             : Container(),
       ],
-      title: Center(
-        child: Text(title),
-      ),
+      title: Text(title),
+      centerTitle: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(16),
+        ),
+      ),
     );
   }
 

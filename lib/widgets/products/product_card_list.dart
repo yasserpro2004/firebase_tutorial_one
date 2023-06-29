@@ -1,13 +1,14 @@
-import 'package:firebase_tutorial_one/config/constants.dart';
+import 'package:firebase_tutorial_one/config/extensions.dart';
 import 'package:flutter/material.dart';
-import '../../models/models.dart';
-import '../custom_shadow.dart';
+import '../widgets.dart';
 
-class WishlistProductCard extends StatelessWidget {
-  final ProductModel product;
+//enum ProductControl { wishlist, cart }
 
-  const WishlistProductCard({Key? key, required this.product})
-      : super(key: key);
+class ProductCardList extends StatelessWidget {
+  //final ProductModel product;
+  final ProductsControl controls;
+
+  const ProductCardList({Key? key, required this.controls}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class WishlistProductCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image.network(
-                          product.productImageURL,
+                          controls.product.productImageURL,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -47,7 +48,7 @@ class WishlistProductCard extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 3,
                       child: Text(
-                        product.productName,
+                        controls.product.productName,
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -61,7 +62,7 @@ class WishlistProductCard extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      '\$ ${product.price.toString()}',
+                      '\$ ${controls.product.price.toString()}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -70,30 +71,7 @@ class WishlistProductCard extends StatelessWidget {
                   ].createShadow().toList(),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: const Icon(Icons.add_circle_rounded),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: const Icon(Icons.delete),
-                        )
-                      ].createShadow().toList(),
-                    ),
-                  ),
-                ),
-              )
+              Expanded(child: controls)
             ],
           ),
         ),

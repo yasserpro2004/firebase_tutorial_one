@@ -7,12 +7,12 @@ part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistInitialState()) {
-    on<StartWishlistEvent>(startWishList);
-    on<AddWishlistEvent>(addWishListProduct);
-    on<RemoveWishlistEvent>(removeWishListProduct);
+    on<StartWishlistEvent>(_startWishList);
+    on<AddWishlistEvent>(_addWishListProduct);
+    on<RemoveWishlistEvent>(_removeWishListProduct);
   }
 
-  void startWishList(
+  void _startWishList(
       StartWishlistEvent event, Emitter<WishlistState> emit) async {
     emit(WishlistInitialState());
     try {
@@ -20,23 +20,27 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     } catch (_) {}
   }
 
-  void addWishListProduct(
+  void _addWishListProduct(
       AddWishlistEvent event, Emitter<WishlistState> emit) async {
     final state = this.state;
     if (state is WishlistLoadedState) {
-      try {
-        emit(
-          WishlistLoadedState(
-            wishlist: WishlistModel(
-              wishlistProducts: List.from(state.wishlist.wishlistProducts)
-                ..add(event.product),
+      //final lst = List.from(state.wishlist.wishlistProducts);
+      if (!List.from(state.wishlist.wishlistProducts).contains(event.product)) {
+        try {
+          emit(
+            WishlistLoadedState(
+              wishlist: WishlistModel(
+                wishlistProducts: List.from(state.wishlist.wishlistProducts)
+                  ..add(event.product),
+              ),
             ),
-          ),
-        );
-      } catch (_) {}
+          );
+        } catch (_) {}
+      }
     }
   }
-   void removeWishListProduct(
+
+  void _removeWishListProduct(
       RemoveWishlistEvent event, Emitter<WishlistState> emit) async {
     final state = this.state;
     if (state is WishlistLoadedState) {

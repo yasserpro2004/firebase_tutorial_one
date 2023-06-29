@@ -1,5 +1,7 @@
+import 'package:firebase_tutorial_one/bloc/blocs.dart';
 import 'package:firebase_tutorial_one/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -85,13 +87,22 @@ class ProductDetails extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.read<WishlistBloc>().add(
+                                        AddWishlistEvent(product: _product),
+                                      );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${_product.productName} was added to wishlist'),
+                                    ),
+                                  );
+                                },
                                 icon: const Icon(Icons.favorite)),
                           ),
                         ],
@@ -110,7 +121,19 @@ class ProductDetails extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                               try {
+                                context
+                                    .read<CartBloc>()
+                                    .add(CartAddEvent(product: _product));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        '${_product.productName} was added to Cart'),
+                                  ),
+                                );
+                              } catch (_) {}
+                            },
                             child: Container(
                               height: 60,
                               width: MediaQuery.of(context).size.width / 4.5,

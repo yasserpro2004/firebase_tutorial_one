@@ -1,5 +1,7 @@
-import 'package:firebase_tutorial_one/config/constants.dart';
+import 'package:firebase_tutorial_one/bloc/blocs.dart';
+import 'package:firebase_tutorial_one/config/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/models.dart';
 
 class ProductCard extends StatelessWidget {
@@ -44,7 +46,19 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              try {
+                                context
+                                    .read<WishlistBloc>()
+                                    .add(AddWishlistEvent(product: product));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        '${product.productName} was added to wishlist'),
+                                  ),
+                                );
+                              } catch (_) {}
+                            },
                             child: const Icon(Icons.favorite_border_outlined,
                                 color: Colors.grey, size: 20)),
                         Column(
@@ -66,7 +80,19 @@ class ProductCard extends StatelessWidget {
                           ],
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            try {
+                              context
+                                  .read<CartBloc>()
+                                  .add(CartAddEvent(product: product));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      '${product.productName} was added to Cart'),
+                                ),
+                              );
+                            } catch (_) {}
+                          },
                           child: const Icon(
                             Icons.shopping_cart_outlined,
                             color: Colors.grey,
